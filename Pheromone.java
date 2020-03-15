@@ -19,7 +19,6 @@ public abstract class Pheromone
 	public double[] vector;
 	protected double max;
 	final protected double min = 0;
-	protected Colony colony;
 	protected Symbol symbol;
 
 	/**
@@ -30,7 +29,7 @@ public abstract class Pheromone
 	public void set_max(double max){this.max = max;}
 	public double get_max(){return this.max;}
 
-	public void set_colony(Colony colony){this.colony = colony; this.symbol = colony.get_pheromone_symbol();}
+	public void set_symbol(Symbol symbol){this.symbol = symbol;}
 
 	/**
 	 * フェロモンベクトルの、指定された成分が0～maxの範囲を逸脱していないか確かめる
