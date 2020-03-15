@@ -4,32 +4,36 @@
 
 
 /**
- * <p>蟻のフェロモンを表す<b>抽象クラス</b>。</p>
+ * <p>蟻(またはコロニー全体)のフェロモンを表すクラス。</p>
  * <p>その実態は0以上(max)以下の変域を変化する成分からなるベクトルである。
  * また、各次元に名前を付けることもできる。</p>
  * created on 2020/03/15
  * @author <a href=http://github.com/17ec084>Tomotaka Hirata(17ec084)</a>
  *
  */
-public abstract class Pheromone
+public class Pheromone
 {
-	/**
-	 * フェロモンベクトル。外部から自由に書き換えできるよう、<b>public宣言している</b>。
-	 */
-	public double[] vector;
-	protected double max;
-	final protected double min = 0;
-	protected Symbol symbol;
+	protected double[] vector;
+	protected final int DIM;
+	protected final double max;
+	protected final double min;
+	protected final Symbol symbol;
+
+	public Pheromone(int DIM, double max, Symbol symbol)
+	{this.DIM = DIM; this.max = max; this.min = 0; this.symbol = symbol;}
+	protected Pheromone(double[] vector, int DIM, double max, double min, Symbol symbol)
+	{this.vector = vector; this.DIM = DIM; this.max = max; this.min = min; this.symbol = symbol;}
+
+	public void set_vector(double[] vector) throws DIMException{if(vector.length!=this.DIM)throw new DIMException(); this.vector = vector;}
+	public double[] get_vector(){return this.vector;}
 
 	/**
 	 * フェロモンベクトルの次元数
 	 */
-	abstract public int get_DIM();
+	public int get_DIM(){return this.DIM;}
 
-	public void set_max(double max){this.max = max;}
 	public double get_max(){return this.max;}
 
-	public void set_symbol(Symbol symbol){this.symbol = symbol;}
 	public Symbol get_symbol(){return this.symbol;}
 
 	/**
@@ -59,7 +63,7 @@ public abstract class Pheromone
 	public double get_param(Symbol symbol) throws OutOfRangeException
 	{
 		double rtn = this.vector[symbol.get_idx()];
-		if(rtn < 0 || this.max < rtn) throw new OutOfRangeException();
+		if(rtn < this.min || this.max < rtn) throw new OutOfRangeException();
 		return rtn;
 	}
 
