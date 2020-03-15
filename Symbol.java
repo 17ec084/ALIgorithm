@@ -13,7 +13,8 @@ public class Symbol
 	private int current_index;
 
 	public Symbol(int DIM){this.symbol_names = new String[DIM];}
-	public Symbol(Pheromone p){ this(p.get_DIM());}
+	public Symbol(Pheromone p){	this(p.get_DIM()); for(int i=0; i<p.get_DIM(); i++)this.set(i, this.from(i).get_str());}
+	//public Symbol(Colony c){ this(c.get_pheromonhe);}
 
 	public void set(int index, String symbol_name){this.symbol_names[index] = symbol_name;}
 

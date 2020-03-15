@@ -30,6 +30,7 @@ public abstract class Pheromone
 	public double get_max(){return this.max;}
 
 	public void set_symbol(Symbol symbol){this.symbol = symbol;}
+	public Symbol get_symbol(){return this.symbol;}
 
 	/**
 	 * フェロモンベクトルの、指定された成分が0～maxの範囲を逸脱していないか確かめる
